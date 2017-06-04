@@ -1,3 +1,5 @@
 __pycache__
 output
 .doit.db
+.vscode
+state_data.json
