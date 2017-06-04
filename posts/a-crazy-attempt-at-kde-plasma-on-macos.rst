@@ -18,7 +18,7 @@ Once you have that installed, I downloaded the kdeneon sponsored all image. This
 that would eventually takeover this side project. I found out real quick that it was having a hard time findout the 
 ``DISPLAY`` variable 
 
-.. image:: /galleries/display.png
+.. image:: /images/display.png
 
 This was resolved via installing xquartz for macOS. You can get this via https://www.xquartz.org/. The second step was
 to run the command ``socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\"`` in a separate terminal. Once you 
@@ -32,7 +32,7 @@ favorite editor and save. Log out and back in to restart xquartz and give it ano
 
 At this point, you start seeing some real craziness, red screens and all.
 
-.. image:: /galleries/red.png
+.. image:: /images/red.png
 
 This is where I got stuck. Apparently xqaurtz is stuck to openGL 2.1 where KDE and more modern X11 programs expect you 
 to be able to produce openGL 3+.
