@@ -1,7 +1,7 @@
 .. title: A Crazy Attempt at KDE Plasma on macOS
 .. slug: a-crazy-attempt-at-kde-plasma-on-macos
 .. date: 2017-06-03 20:48:00 UTC-04:00
-.. tags: 
+.. tags: tech, kde, docker, macOS
 .. category: 
 .. link: 
 .. description: 
