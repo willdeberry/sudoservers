@@ -20,4 +20,10 @@ The process started by reading the WARNINGS on the Zen site about the need for t
    Scanning posts......done!
    ERROR: Two different tasks can't have a common target.'output/assets/css/main.css' is a target for copy_assets:output/assets/css/main.css and build _less:output/assets/css/main.css.
 
-So long story short, my PSA at this point and time is if you are getting this error when building, remove the ``less`` plugin and continue on. I dealt with this for about 2 hours and thus wanted to provide a heads up to other fellow bloggers.
+So I reached out to the all knowing Google and was led around in circles and basically found nothing that could help me actually build with the theme I wanted. Frustration and giving up started to creep in. So I went back to the WARNINGS that led me down this path in the beginning.
+
+  WARNING: The zen themes are LESS-powered (not less... because it is more-powered ;-)) If you use webassests (USE_BUNDLES = True in your conf.py), the theme will use compiled css files, so don't worry at all... But, if you want to build the css files from the zen LESS files, you have to use USE_BUNDLES = False, and have installed the lessc (official LESS compiler). Additionaly, you have a LESS plugin available in the Nikola plugins repo to automatically build the LESS files inside nikola build command. You can easily install it just doing: nikola plugin -i less.
+
+I then dug through :code:`conf.py` and realized that :code:`USE_BUNDLES` is set to ``True`` by default. This finally caused a light bulb to go off and thus I attempted to run things without ``less``. So I uninstalled the ``less`` plugin :code:`nikola plugin -r less`. This was finally the tipping point and got things working for me. All is good now but that was definitely a frustrating battle I was not ready for.
+
+TL;DR: If you are getting this error when building, remove the ``less`` plugin and continue on. I dealt with this for about 2-3 hours and thus wanted to provide a heads up to other fellow bloggers.
