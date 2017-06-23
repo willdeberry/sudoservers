@@ -1,7 +1,7 @@
 .. title: Battles with Nikola Themes
 .. slug: battles-with-nikola-themes
 .. date: 2017-06-04 20:12:43 UTC-04:00
-.. tags: nikola theme
+.. tags: nikola, theme
 .. category: nikola
 .. link: 
 .. description: 
