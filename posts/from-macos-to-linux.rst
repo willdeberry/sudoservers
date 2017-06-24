@@ -36,7 +36,7 @@ Using the newly crafted usb stick, reboot your macOS and then hold the left alt/
 
 All major features are working out of the box for me, but I mainly had to fight the HiDPI support and touchpad configuration to get things working the way I wanted.
 
-The issues with HiDPI I ran into were things like the mouse and the top title bar of gnome being extremely huge. TO fix this, after a couple days of fighting with it via ``gnome tweak tool`, I found the command :code:`gsettings set org.gnome.desktop.interface scaling-factor 1`. This is the one command that finally put **all** UI elements to the same size. Feel free to change 1 to whatever scale you are wanting. Also, if you are looking for fractional scaling, you will need to combine gnome scaling and X11 zooming in order to achieve this.
+The issues with HiDPI I ran into were things like the mouse and the top title bar of gnome being extremely huge. TO fix this, after a couple days of fighting with it via ``gnome tweak tool``, I found the command :code:`gsettings set org.gnome.desktop.interface scaling-factor 1`. This is the one command that finally put all UI elements to the same size. Feel free to change 1 to whatever scale you are wanting. Also, if you are looking for fractional scaling, you will need to combine gnome scaling and X11 zooming in order to achieve this.
 
 For the touchpad to work more inline to what I have become used to in macOS, I had to adjust some config for ``libinput``. Below is what I ended up using:
 
@@ -48,7 +48,7 @@ For the touchpad to work more inline to what I have become used to in macOS, I h
         MatchDevicePath "/dev/input/event*"
         Driver "libinput"
         Option "NaturalScrolling" "true"
-    EndSection`
+    EndSection
 
 Give it one more reboot or logout and back in to get everything back in sync and the rest is history. For more information about tweaking and fine tuning, definitely look towards the arch wiki_ for mbp.
 
