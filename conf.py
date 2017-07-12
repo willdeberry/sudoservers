@@ -592,7 +592,7 @@ REDIRECTIONS = []
 # in a `nikola deploy` command as you like.
 DEPLOY_COMMANDS = {
     'default': [
-        "rsync -avz -e 'ssh' --delete output/ will@sudoservers.com:/var/www/sudoservers",
+        "rsync -avz -e 'ssh' --delete output/ will@sudoservers.com:docker/www/sudoservers",
     ]
 }
 
