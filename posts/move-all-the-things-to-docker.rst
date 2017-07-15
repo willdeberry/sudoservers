@@ -1,8 +1,8 @@
 .. title: Move all the things to Docker
 .. slug: move-all-the-things-to-docker
 .. date: 2017-07-11 22:02:12 UTC-04:00
-.. tags: docker esxi vm
-.. category: docker, virtualization
+.. tags: docker, esxi, vm
+.. category: docker
 .. link: 
 .. description: 
 .. type: text
@@ -18,3 +18,58 @@ The first hurdle was definitely the least worries of the two, but was definitely
 .. _guide: https://bitbucket.org/automationlogic/le-docker-compose.git
 
 .. _docker-compose.yml: https://bitbucket.org/automationlogic/le-docker-compose/src/2f1b37b842e3ed9aaa6aef645f7e0f6782308c1d/docker-compose.yml?at=master&fileviewer=file-view-default#docker-compose.yml-18
+
+Hurdle number two strictly involved with deploying nextcloud via docker using nginx as a frontend proxy. I used both upstream docker images provided by the nginx and nextcloud teams respectively. Nextcloud however, I decided to use their ``fpm`` based image rather than their default. This was strictly decided because I felt like it would have been overkill to still a docker image with the apache webserver behind a webserver already being provided by ``nginx``.
+
+Anyways, nextcloud's docker image expects the volume for the nextcloud files to be mounted within the image at :code:`/var/www/html`. So I accomidated this and mounted a local nextcloud directory to where they wanted it.
+
+.. code-block ::
+
+    nextcloud:
+        image: nextcloud:fpm
+        container_name: nextcloud
+        ports:
+            - '9000'
+        links:
+            - mysql
+            - redis
+        volumes:
+            - ./www/html:/var/www/html
+            - ../storage:/mnt
+            - /etc/localtime:/etc/localtime:ro
+        depends_on:
+            - mysql
+        restart: always
+
+However, since I tend to have everything in the ``www`` directory for ``nginx`` organized per project, I mapped this to my ``nginx`` docker image to :code:`/var/www/nextcloud`, as seen in my ``nginx`` example below:
+
+.. code-block ::
+
+    nginx:
+        build: ./nginx
+        container_name: nginx
+        ports:
+            - '80:80'
+            - '443:443'
+        volumes:
+            - ./www:/var/www
+            - ../storage:/mnt
+            - /etc/localtime:/etc/localtime:ro
+        links:
+            - letsencrypt
+            - nextcloud
+            - collabora
+            - transmission
+        volumes_from:
+            - letsencrypt
+        depends_on:
+            - letsencrypt
+            - nextcloud
+            - transmission
+        restart: always
+
+Well this is where things started going downhill and eventually took me a couple days till I found something online that pointed me in the right direction. Long story short, if you are going to run a webserver and a separate ``fpm`` docker images, you have to have all URL paths be exactly the same. Both docker containers need to be able to look things up the same way, even as strict as file pathing. To solve this, I renamed my ``nextcloud`` directory that was in the ``www`` to ``html``. This made my ``nginx`` container match the ``nextcloud`` container paths and solved all 404 errors I had been getting. Hopefully this saves someone or my future self some hours going forward knowing this.
+
+Outside of those hurdles I had to deal with, docker has been fun to learn and understand all the black magic that goes along with it. For those interested, you can find the latest state of my docker-compose file on my github_.
+
+.. _github: https://github.com/willdeberry/home-server
