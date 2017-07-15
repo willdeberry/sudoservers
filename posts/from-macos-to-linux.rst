@@ -2,7 +2,7 @@
 .. slug: from-macos-to-linux
 .. date: 2017-06-22 22:32:42 UTC-04:00
 .. tags: macOS, linux
-.. category: tech, os
+.. category: os
 .. link:
 .. description:
 .. type: text
