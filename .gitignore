@@ -1,6 +1,6 @@
 __pycache__
 output
-.doit.db
+*.db
 .vscode
 state_data.json
 cache
